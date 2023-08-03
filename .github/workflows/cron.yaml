@@ -59,4 +59,14 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: out.json
-        path: out.json   
+        path: out.json
+
+    - name: Pull Changes
+      run: git pull
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "Update data"
+        git push
