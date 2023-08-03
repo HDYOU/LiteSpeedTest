@@ -18,7 +18,7 @@ func TrojanLinkToTrojanOption(link string) (*outbound.TrojanOption, error) {
 	if err != nil {
 		return nil, err
 	}
-	if u.Scheme != "trojan" or u.Scheme != "vless"{
+	if u.Scheme != "trojan" && u.Scheme != "vless"{
 		return nil, errors.New("not a trojan/vless link")
 	}
 	pass := u.User.Username()
