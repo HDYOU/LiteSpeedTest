@@ -219,7 +219,7 @@ func (v *Vmess) DialUDP(metadata *C.Metadata) (net.PacketConn, error) {
 
 func (v *Vmess) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]string{
-		"type": "Trojan",
+		"type": "Vmess",
 	})
 }
 
