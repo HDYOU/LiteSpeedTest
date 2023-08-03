@@ -18,8 +18,8 @@ func TrojanLinkToTrojanOption(link string) (*outbound.TrojanOption, error) {
 	if err != nil {
 		return nil, err
 	}
-	if u.Scheme != "trojan" {
-		return nil, errors.New("not a trojan link")
+	if u.Scheme != "trojan" or u.Scheme != "vless"{
+		return nil, errors.New("not a trojan/vless link")
 	}
 	pass := u.User.Username()
 	hostport := u.Host
@@ -79,6 +79,13 @@ func TrojanLinkToTrojanOption(link string) (*outbound.TrojanOption, error) {
 
 func init() {
 	outbound.RegisterDialerCreator("trojan", func(link string) (outbound.Dialer, error) {
+		trojanOption, err := TrojanLinkToTrojanOption(link)
+		if err != nil {
+			return nil, err
+		}
+		return outbound.NewTrojan(trojanOption)
+	})
+	outbound.RegisterDialerCreator("vless", func(link string) (outbound.Dialer, error) {
 		trojanOption, err := TrojanLinkToTrojanOption(link)
 		if err != nil {
 			return nil, err
