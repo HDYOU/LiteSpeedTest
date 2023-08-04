@@ -158,6 +158,52 @@ func ParseProxy(mapping map[string]interface{}, namePrefix string) (string, erro
 		if len(trojanOption.Name) > 0 {
 			link = fmt.Sprintf("%s#%s%s", link, namePrefix, url.QueryEscape(trojanOption.Name))
 		}
+	case "vless":
+		trojanOption := &outbound.TrojanOption{}
+		err = decoder.Decode(mapping, trojanOption)
+		if err != nil {
+			break
+		}
+
+		link = fmt.Sprintf("vless://%s@%s", trojanOption.Password, net.JoinHostPort(trojanOption.Server, strconv.Itoa(trojanOption.Port)))
+		query := []string{}
+		query = append(query, "encryption=none")
+		// allowInsecure
+		if trojanOption.SkipCertVerify {
+			query = append(query, "allowInsecure=1")
+		} else {
+			query = append(query, "security=tls")
+		}
+		if len(trojanOption.SNI) > 0 {
+			query = append(query, fmt.Sprintf("sni=%s", trojanOption.SNI))
+		}
+		// ws query
+		if trojanOption.Network == "ws" {
+			query = append(query, "type=ws")
+			if len(trojanOption.WSOpts.Path) > 0 {
+				query = append(query, fmt.Sprintf("path=%s", trojanOption.WSOpts.Path))
+				for k, v := range trojanOption.WSOpts.Headers {
+					query = append(query, fmt.Sprintf("%s=%s", k, v))
+				}
+			}
+		}
+		// grpc
+		if trojanOption.Network == "grpc" {
+			query = append(query, "type=grpc")
+			if len(trojanOption.GrpcOpts.GrpcServiceName) > 0 {
+				query = append(query, fmt.Sprintf("serviceName=%s", trojanOption.GrpcOpts.GrpcServiceName))
+			}
+		}
+
+		if len(query) > 0 {
+			link = fmt.Sprintf("%s?%s", link, strings.Join(query, "&"))
+		}
+		if len(trojanOption.Remarks) > 0 {
+			link = fmt.Sprintf("%s#%s%s", link, namePrefix, url.QueryEscape(trojanOption.Remarks))
+		}
+		if len(trojanOption.Name) > 0 {
+			link = fmt.Sprintf("%s#%s%s", link, namePrefix, url.QueryEscape(trojanOption.Name))
+		}
 	case "http":
 		httpOption := &outbound.HttpOption{}
 		err = decoder.Decode(mapping, httpOption)
