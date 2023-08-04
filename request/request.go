@@ -212,6 +212,8 @@ func PingLinkInternal(link string, pingOption PingOption) (int64, error) {
 		option, err = config.VmessLinkToVmessOption(link)
 	case "trojan":
 		option, err = config.TrojanLinkToTrojanOption(link)
+	case "vless":
+		option, err = config.TrojanLinkToTrojanOption(link)
 	case "http":
 		option, err = config.HttpLinkToHttpOption(link)
 	case "ss":
