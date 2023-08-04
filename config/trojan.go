@@ -43,6 +43,7 @@ func TrojanLinkToTrojanOption(link string) (*outbound.TrojanOption, error) {
 	}
 	if rawQuery, err := url.ParseQuery(u.RawQuery); err == nil {
 		trojanOption.SNI = rawQuery.Get("sni")
+		trojanOption.encryption = rawQuery.Get("encryption")
 		trojanOption.SkipCertVerify = rawQuery.Get("allowInsecure") == "1"
 		network := rawQuery.Get("type")
 		if network == "ws" {
