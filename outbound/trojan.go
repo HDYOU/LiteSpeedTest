@@ -39,6 +39,8 @@ type TrojanOption struct {
 	UDP            bool        `proxy:"udp,omitempty"`
 	Remarks        string      `proxy:"remarks,omitempty"`
 	Network        string      `proxy:"network,omitempty"`
+	WSPath         string            `proxy:"ws-path,omitempty"`
+	WSHeaders      map[string]string `proxy:"ws-headers,omitempty"`
 	GrpcOpts       GrpcOptions `proxy:"grpc-opts,omitempty"`
 	WSOpts         WSOptions   `proxy:"ws-opts,omitempty"`
 }
