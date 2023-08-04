@@ -29,6 +29,12 @@ func Link2Dialer(link string) (outbound.Dialer, error) {
 		} else {
 			d, err = outbound.NewTrojan(option)
 		}
+	case "vless":
+		if option, err1 := TrojanLinkToTrojanOption(link); err1 != nil {
+			return nil, err1
+		} else {
+			d, err = outbound.NewTrojan(option)
+		}
 	case "ss":
 		if option, err1 := SSLinkToSSOption(link); err1 != nil {
 			return nil, err1
