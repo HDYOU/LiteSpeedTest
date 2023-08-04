@@ -37,6 +37,7 @@ type TrojanOption struct {
 	SNI            string      `proxy:"sni,omitempty"`
 	SkipCertVerify bool        `proxy:"skip-cert-verify,omitempty"`
 	UDP            bool        `proxy:"udp,omitempty"`
+	encryption        string      `proxy:"encryption,omitempty"`
 	Remarks        string      `proxy:"remarks,omitempty"`
 	Network        string      `proxy:"network,omitempty"`
 	WSPath         string            `proxy:"ws-path,omitempty"`
