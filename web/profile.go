@@ -601,6 +601,17 @@ func (p *ProfileTest) testOne(ctx context.Context, index int, link string, nodeC
 	}
 	cfg, err := config.Link2Config(link)
 	if err != nil {
+	    node := render.Node{
+			Id:       index,
+			Group:    p.Options.GroupName,
+			Remarks:  "Error Node",
+			Protocol: "vmess",
+			Ping:     fmt.Sprintf("%d", 0),
+			AvgSpeed: 0,
+			MaxSpeed: 0,
+			IsOk:     false,
+		}
+		nodeChan <- node
 		return err
 	}
 	remarks := cfg.Remarks
