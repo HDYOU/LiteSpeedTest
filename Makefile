@@ -2,8 +2,8 @@ NAME=lite
 BINDIR=bin
 VERSION=$(shell git describe --tags || echo "unknown version")
 BUILDTIME=$(shell date -u)
-GOBUILD=CGO_ENABLED=0 go build -trimpath -ldflags '-X "github.com/xxf098/LiteSpeedTest/constant.Version=$(VERSION)" \
-		-X "github.com/xxf098/LiteSpeedTest/constant.BuildTime=$(BUILDTIME)" \
+GOBUILD=CGO_ENABLED=0 go build -trimpath -ldflags '-X "github.com/HDYOU/LiteSpeedTest/constant.Version=$(VERSION)" \
+		-X "github.com/HDYOU/LiteSpeedTest/constant.BuildTime=$(BUILDTIME)" \
 		-w -s -buildid='
 
 PLATFORM_LIST = \
